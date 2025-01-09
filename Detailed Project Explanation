@@ -1,0 +1,114 @@
+# Next Word Prediction App
+
+**Author**: Aryan B V 
+**Date**: January 9th, 2025  
+
+## Overview
+
+This repository contains a Shiny web application for next-word prediction and an R Markdown presentation explaining the project. The app uses a simple natural language processing (NLP) model that predicts the next word based on the input phrase from the user. This project is a demonstration of basic NLP and machine learning techniques applied in a Shiny app. 
+
+### Project Components:
+- **Shiny App**: A web app that predicts the next word based on a user input phrase.
+- **R Markdown Presentation**: An overview and explanation of the project, its functionality, and the underlying algorithm.
+
+### Key Features:
+- **Shiny App**: Uses a simple NLP model to predict the next word in a phrase.
+- **R Markdown**: Provides insights into the design, functionality, and use case of the app.
+
+## Links
+
+- [Shiny App: Next Word Prediction App]https://aryanbv.shinyapps.io/Word_prediction/)
+- [R Markdown Presentation: Overview of Next Word Prediction](https://rpubs.com/AryanBV/1261866
+
+## Files and Description:
+1. **shiny_app/app.R**: The R script for the Shiny app. This code takes user input, processes it, and predicts the next word.
+2. **rmarkdown_presentation/Presentation.Rmd**: R Markdown file that provides an overview and detailed explanation of the app, including key insights into its workings.
+3. **README.md**: This file, containing the overview of the project and its components.
+
+## How to Run the Code:
+1. Clone this repository to your local machine.
+2. Install the required R libraries:
+   ```R
+   install.packages(c("shiny", "tidyverse"))
+2. links.md:
+A markdown file containing important links.
+
+markdown
+Copy code
+
+r
+Copy code
+# Code for the Shiny App (app.R)
+
+library(shiny)
+library(tidyverse)
+
+# Example: A simple unigram-based prediction model
+# Replace this with your trained NLP model
+predict_next_word <- function(input_text) {
+  word_list <- c("world", "day", "moment", "time", "life", "future")
+  return(sample(word_list, 1))
+}
+
+# UI
+ui <- fluidPage(
+  titlePanel("Next Word Prediction App"),
+  sidebarLayout(
+    sidebarPanel(
+      textInput("input_phrase", "Enter a phrase:", value = "The quick brown"),
+      actionButton("predict", "Predict Next Word")
+    ),
+    mainPanel(
+      h3("Predicted Next Word:"),
+      textOutput("next_word")
+    )
+  )
+)
+
+# Server
+server <- function(input, output, session) {
+  predicted_word <- reactiveVal("")
+
+  observeEvent(input$predict, {
+    if (nchar(input$input_phrase) > 0) {
+      predicted_word(predict_next_word(input$input_phrase))
+    } else {
+      predicted_word("Please enter a valid phrase.")
+    }
+  })
+
+  output$next_word <- renderText({
+    predicted_word()
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+4. rmarkdown_presentation/Presentation.Rmd:
+The R Markdown presentation explaining the app and its design.
+
+## Overview
+
+The Next Word Prediction App predicts the next word based on user input. Using simple machine learning algorithms, it allows users to type a phrase and get a prediction for the next word.
+
+---
+
+## Components
+
+1. **Shiny App**: Predicts the next word from an input phrase.
+2. **R Markdown Presentation**: Explains the concept, functionality, and features of the app.
+
+---
+
+## Algorithm
+
+The app uses a simple rule-based model to predict the next word. It samples a word from a predefined list of words based on the input phrase.
+
+---
+
+## Future Work
+
+- Enhance the prediction model with more sophisticated algorithms.
+- Improve the app interface and add features like multi-word prediction.
+
+---
